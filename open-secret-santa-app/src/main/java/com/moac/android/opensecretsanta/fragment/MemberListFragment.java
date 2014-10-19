@@ -395,11 +395,7 @@ public class MemberListFragment extends InjectingListFragment {
                         populateMemberList();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
+                .setNegativeButton(android.R.string.cancel, null);
 
         Dialog dialog = builder.create();
         dialog.getWindow().setWindowAnimations(R.style.dialog_animate_overshoot);
@@ -421,11 +417,7 @@ public class MemberListFragment extends InjectingListFragment {
                         mFragmentContainer.deleteGroup(mGroup.getId());
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
+                .setNegativeButton(android.R.string.cancel, null);
 
         Dialog dialog = builder.create();
         dialog.getWindow().setWindowAnimations(R.style.dialog_animate_overshoot);
@@ -450,11 +442,7 @@ public class MemberListFragment extends InjectingListFragment {
                         // Handled in custom listener defined after show()
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
+                .setNegativeButton(android.R.string.cancel, null);
 
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setWindowAnimations(R.style.dialog_animate_overshoot);
