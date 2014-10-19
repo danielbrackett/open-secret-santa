@@ -2,6 +2,7 @@ package com.moac.android.opensecretsanta.fragment;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -87,6 +88,7 @@ public class NotifyDialogFragment extends InjectingDialogFragment {
 
         // Inflate layout
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        @SuppressLint("InflateParams")
         View view = inflater.inflate(R.layout.fragment_dialog_notify, null);
 
         // Configure the views
@@ -216,7 +218,6 @@ public class NotifyDialogFragment extends InjectingDialogFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.i(TAG, "onSaveInstanceState()");
         super.onSaveInstanceState(outState);
         outState.putString(MESSAGE_KEY, mMsgField.getText().toString());
         Log.d(TAG, "onSaveInstanceState() msg: " + outState.getString(MESSAGE_KEY));
@@ -226,8 +227,9 @@ public class NotifyDialogFragment extends InjectingDialogFragment {
     @Override
     public void onDestroyView() {
         // Refer to - http://code.google.com/p/android/issues/detail?id=17423
-        if (getDialog() != null && getRetainInstance())
+        if (getDialog() != null && getRetainInstance()) {
             getDialog().setDismissMessage(null);
+        }
         super.onDestroyView();
     }
 
