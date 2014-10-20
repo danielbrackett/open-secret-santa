@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
-        <item name="android:popupMenuStyle">@style/MyTheme.PopupMenu.Style</item>
-        <item name="android:actionBarStyle">@style/MyTheme.ActionBar.Style</item>
-        <item name="android:actionMenuTextColor">@android:color/holo_blue_light</item>
-    </style>
+        <style name="AppTheme" parent="AppTheme.Base"/>
 
-    <!-- Action bar background -->
-    <style name="MyTheme.ActionBar.Style" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@android:color/holo_blue_light</item>
-        <!-- if we want the action bar to have the blue shadow or not ... drawable/ab_transparent_mymenu</item-->
-        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
-    </style>
+        <style name="AppTheme.Base" parent="Theme.AppCompat">
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+            <item name="android:windowNoTitle">true</item>
+            <item name="windowActionBar">false</item>
+        </style>
 
-    <!-- Action bar text style -->
-    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+    <!--<style name="AppBaseTheme" parent="android:Theme.Holo.Light">-->
+        <!--<item name="android:popupMenuStyle">@style/MyTheme.PopupMenu.Style</item>-->
+        <!--<item name="android:actionBarStyle">@style/MyTheme.ActionBar.Style</item>-->
+        <!--<item name="android:actionMenuTextColor">@android:color/holo_blue_light</item>-->
+    <!--</style>-->
 
-    <!-- Background for the overflow menu -->
-    <style name="MyTheme.PopupMenu.Style" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@color/white</item>
-        <item name="android:alpha">0.80</item>
-    </style>
+    <!--&lt;!&ndash; Action bar background &ndash;&gt;-->
+    <!--<style name="MyTheme.ActionBar.Style" parent="@android:style/Widget.Holo.Light.ActionBar">-->
+        <!--<item name="android:background">@android:color/holo_blue_light</item>-->
+        <!--&lt;!&ndash; if we want the action bar to have the blue shadow or not ... drawable/ab_transparent_mymenu</item&ndash;&gt;-->
+        <!--<item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>-->
+    <!--</style>-->
+
+    <!--&lt;!&ndash; Action bar text style &ndash;&gt;-->
+    <!--<style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">-->
+        <!--<item name="android:textColor">@android:color/white</item>-->
+        <!--<item name="android:textSize">18sp</item>-->
+        <!--<item name="android:textStyle">bold</item>-->
+    <!--</style>-->
+
+    <!--&lt;!&ndash; Background for the overflow menu &ndash;&gt;-->
+    <!--<style name="MyTheme.PopupMenu.Style" parent="@android:style/Widget.Holo.Light.ListPopupWindow">-->
+        <!--<item name="android:popupBackground">@color/white</item>-->
+        <!--<item name="android:alpha">0.80</item>-->
+    <!--</style>-->
 
     <!-- Dialog window animations style -->
     <style name="dialog_animate_overshoot">
@@ -33,7 +43,7 @@
         <item name="android:windowExitAnimation">@anim/anim_overshoot_out</item>
     </style>
 
-    <!-- Application theme -->
-    <style name="AppTheme" parent="AppBaseTheme"/>
+    <!--&lt;!&ndash; Application theme &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="AppBaseTheme"/>-->
 
 </resources>
