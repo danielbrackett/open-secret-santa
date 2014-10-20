@@ -27,8 +27,6 @@
 */
 package com.moac.android.inject.dagger;
 
-import android.content.Context;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

@@ -28,22 +28,24 @@
 
 package com.moac.android.inject.dagger;
 
-import dagger.Module;
-import dagger.Provides;
-
-import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+import dagger.Module;
+import dagger.Provides;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 /**
  * The dagger module associated with {@link InjectingFragment} and {@link InjectingFragment}.
  */
-@Module(library=true)
+@Module(library = true)
 public class InjectingFragmentModule {
     private android.app.Fragment mFragment;
     private Injector mInjector;
@@ -82,6 +84,7 @@ public class InjectingFragmentModule {
     /**
      * Defines an qualifier annotation which can be used in conjunction with a type to identify dependencies within
      * the object graph.
+     *
      * @see <a href="http://square.github.io/dagger/">the dagger documentation</a>
      */
     @Qualifier

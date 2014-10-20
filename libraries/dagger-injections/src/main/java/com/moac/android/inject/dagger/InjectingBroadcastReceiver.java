@@ -28,22 +28,21 @@
 package com.moac.android.inject.dagger;
 
 import android.content.BroadcastReceiver;
-
 import android.content.Context;
 import android.content.Intent;
-
-import dagger.Module;
-import dagger.ObjectGraph;
-import dagger.Provides;
-
-import javax.inject.Qualifier;
-import javax.inject.Singleton;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Qualifier;
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.ObjectGraph;
+import dagger.Provides;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -94,7 +93,7 @@ public class InjectingBroadcastReceiver
      * @param target the target object
      */
     public void inject(Object target) {
-  //      checkState(mObjectGraph != null, "object graph must be initialized prior to calling inject");
+        //      checkState(mObjectGraph != null, "object graph must be initialized prior to calling inject");
         mObjectGraph.inject(target);
     }
 

@@ -64,6 +64,7 @@ public class InjectingListFragment extends ListFragment implements Injector {
             inject(this);
         }
     }
+
     @Override
     public void onDestroy() {
         // Eagerly clear the reference to the fragment graph to allow it to be garbage collected as
@@ -84,6 +85,7 @@ public class InjectingListFragment extends ListFragment implements Injector {
 
     /**
      * Injects a target object using this ListFragment's object graph.
+     *
      * @param target the target object
      */
     @Override

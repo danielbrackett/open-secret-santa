@@ -27,7 +27,6 @@
 */
 package com.moac.android.inject.dagger;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 
 import java.util.ArrayList;

@@ -27,7 +27,6 @@
 */
 package com.moac.android.inject.dagger;
 
-import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 
 import java.util.ArrayList;

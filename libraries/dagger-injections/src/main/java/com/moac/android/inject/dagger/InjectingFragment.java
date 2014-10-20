@@ -30,10 +30,10 @@ package com.moac.android.inject.dagger;
 import android.app.Fragment;
 import android.os.Bundle;
 
-import dagger.ObjectGraph;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import dagger.ObjectGraph;
 
 /**
  * Manages an ObjectGraph on behalf of an Fragment. This graph is created by extending the hosting Activity's graph

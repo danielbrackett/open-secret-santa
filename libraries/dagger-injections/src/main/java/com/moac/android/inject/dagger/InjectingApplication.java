@@ -94,7 +94,7 @@ public class InjectingApplication extends Application implements Injector {
         /**
          * Class constructor.
          *
-         * @param app the Application with which this module is associated
+         * @param app      the Application with which this module is associated
          * @param injector the dagger injector for the Application-scope graph
          */
         public InjectingApplicationModule(android.app.Application app, Injector injector) {
