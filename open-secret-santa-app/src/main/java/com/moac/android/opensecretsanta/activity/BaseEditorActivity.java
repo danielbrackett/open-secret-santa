@@ -1,17 +1,16 @@
 package com.moac.android.opensecretsanta.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.moac.android.inject.dagger.InjectingActivity;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.fragment.Saveable;
 
-public abstract class BaseEditorActivity extends InjectingActivity {
+public abstract class BaseEditorActivity extends BaseActivity {
 
     protected Saveable mSaveableFragment;
 
@@ -34,7 +33,7 @@ public abstract class BaseEditorActivity extends InjectingActivity {
     protected abstract void createEditorFragment(Bundle savedInstance);
 
     private void configureActionBar() {
-        ActionBar actionBar = getActionBar();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Inflate a custom action bar with editor controls
             LayoutInflater inflater = (LayoutInflater) getSystemService

@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.moac.android.inject.dagger.InjectingDialogFragment;
+import com.moac.android.inject.dagger.InjectingSupportDialogFragment;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.activity.Intents;
 import com.moac.android.opensecretsanta.adapter.AccountAdapter;
@@ -40,7 +40,7 @@ import rx.android.concurrency.AndroidSchedulers;
 import rx.concurrency.Schedulers;
 import rx.util.functions.Action1;
 
-public class NotifyDialogFragment extends InjectingDialogFragment {
+public class NotifyDialogFragment extends InjectingSupportDialogFragment {
 
     private static final String TAG = NotifyDialogFragment.class.getSimpleName();
     private static final String MESSAGE_KEY = "message";
@@ -187,7 +187,6 @@ public class NotifyDialogFragment extends InjectingDialogFragment {
             remainingChars = message.length() >= mMaxMsgLength ? 0 : mMaxMsgLength - message.length();
         }
         mCharCountView.setText(String.valueOf(remainingChars));
-
 
         mIsEmailAuthRequired = NotifyUtils.containsEmailSendableEntry(mDb, mMemberIds);
         if (mIsEmailAuthRequired) {

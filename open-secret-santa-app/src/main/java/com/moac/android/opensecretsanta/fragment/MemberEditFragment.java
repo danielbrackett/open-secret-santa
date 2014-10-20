@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.moac.android.inject.dagger.InjectingFragment;
+import com.moac.android.inject.dagger.InjectingSupportFragment;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.activity.Intents;
 import com.moac.android.opensecretsanta.adapter.ContactMethodAdapter;
@@ -34,7 +34,7 @@ import javax.inject.Inject;
 /**
  * TODO(PT) Fix rotation and clobbering of field values when changed from original
  */
-public class MemberEditFragment extends InjectingFragment implements Saveable {
+public class MemberEditFragment extends InjectingSupportFragment implements Saveable {
 
     private static final String TAG = MemberEditFragment.class.getSimpleName();
 

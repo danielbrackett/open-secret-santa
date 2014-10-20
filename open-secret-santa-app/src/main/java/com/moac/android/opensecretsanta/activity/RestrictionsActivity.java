@@ -19,10 +19,10 @@ public class RestrictionsActivity extends BaseEditorActivity {
             final long groupId = getIntent().getLongExtra(Intents.GROUP_ID_INTENT_EXTRA, PersistableObject.UNSET_ID);
             final long memberId = getIntent().getLongExtra(Intents.MEMBER_ID_INTENT_EXTRA, PersistableObject.UNSET_ID);
             RestrictionsListFragment fragment = RestrictionsListFragment.create(groupId, memberId);
-            getFragmentManager().beginTransaction().add(R.id.container_content, fragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container_content, fragment).commit();
             mSaveableFragment = fragment;
         } else {
-            mSaveableFragment = (Saveable) getFragmentManager().findFragmentByTag(MemberEditFragment.class.getName());
+            mSaveableFragment = (Saveable) getSupportFragmentManager().findFragmentByTag(MemberEditFragment.class.getName());
         }
     }
 }

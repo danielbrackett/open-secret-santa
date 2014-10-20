@@ -1,26 +1,24 @@
 package com.moac.android.opensecretsanta.activity;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.common.primitives.Longs;
-import com.moac.android.inject.dagger.InjectingActivity;
 import com.moac.android.opensecretsanta.OpenSecretSantaApplication;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.adapter.DrawerButtonItem;
@@ -43,7 +41,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 // FIXME(PT) This class is too big
-public class MainActivity extends InjectingActivity implements MemberListFragment.FragmentContainer, NotifyDialogFragment.FragmentContainer, MemberEditor {
+public class MainActivity extends BaseActivity implements MemberListFragment.FragmentContainer, NotifyDialogFragment.FragmentContainer, MemberEditor {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -67,20 +65,20 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
     @Override
     public void onCreate(Bundle _savedInstanceState) {
         super.onCreate(_savedInstanceState);
+        findOrCreateWorkerFragment();
+        initialiseUI();
+    }
 
+    private void findOrCreateWorkerFragment() {
         // Find or create existing worker fragment
-        FragmentManager fm = getFragmentManager();
-
-        // Find or create existing worker fragment
+        FragmentManager fm = getSupportFragmentManager();
         mNotifyExecutorFragment = (NotifyExecutorFragment) fm.findFragmentByTag(NOTIFY_EXECUTOR_FRAGMENT_TAG);
 
         if (mNotifyExecutorFragment == null) {
             mNotifyExecutorFragment = NotifyExecutorFragment.create();
             fm.beginTransaction().add(mNotifyExecutorFragment, NOTIFY_EXECUTOR_FRAGMENT_TAG).commit();
         }
-        initialiseUI();
     }
-
 
     private void initialiseUI() {
         setContentView(R.layout.activity_main);
@@ -88,7 +86,6 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
 
         // Add Groups list header - *before adapter is set*
         View headerView = getLayoutInflater().inflate(R.layout.drawer_section_header_view, mDrawerList, false);
-        TextView headerLabel = (TextView) headerView.findViewById(R.id.textView_groupListLabel);
         mDrawerList.addHeaderView(headerView);
 
         mDrawerListAdapter = new DrawerListAdapter(this);
@@ -100,14 +97,14 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer icon to replace 'Up' caret */
+                getActionBarToolbar(),  /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open_accesshint,  /* "open drawer" description */
                 R.string.drawer_close_accesshint) /* "close drawer" description */ {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(getString(R.string.app_name));
-                getActionBar().setIcon(R.drawable.icon);
+                getSupportActionBar().setTitle(getString(R.string.app_name));
+                getSupportActionBar().setIcon(R.drawable.icon);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -120,9 +117,9 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
 
         //  Fetch the most recently used Group Id from preferences
@@ -137,7 +134,7 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
                 mDrawerList.setItemChecked(toListViewPosition(mDrawerList, adapterPosition), true);
                 showGroup(groupId, false);
             } else {
-                Log.i(TAG, "Most recent groupId was invalid: " + groupId);
+                Log.w(TAG, "Most recent groupId was invalid: " + groupId);
                 mSharedPreferences.
                         edit().remove(OpenSecretSantaApplication.MOST_RECENT_GROUP_KEY).apply();
                 // Show the drawer to allow Group creation/selection by user
@@ -180,8 +177,7 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
         }
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
-                Intent intent = new Intent(MainActivity.this, AllPreferencesActivity.class);
-                slideInIntent(intent);
+                launchActivityWithSlideIn(AllPreferencesActivity.class);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -190,25 +186,25 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
 
     @Override
     public void onEditMember(long _memberId) {
-        Intent intent = new Intent(MainActivity.this, EditActivity.class);
-        intent.putExtra(Intents.MEMBER_ID_INTENT_EXTRA, _memberId);
-        slideInIntent(intent);
+        Bundle extra = new Bundle();
+        extra.putLong(Intents.MEMBER_ID_INTENT_EXTRA, _memberId);
+        launchActivityWithSlideIn(EditActivity.class, extra);
     }
 
     @Override
     public void onRestrictMember(long _groupId, long _memberId) {
-        Intent intent = new Intent(MainActivity.this, RestrictionsActivity.class);
-        intent.putExtra(Intents.GROUP_ID_INTENT_EXTRA, _groupId);
-        intent.putExtra(Intents.MEMBER_ID_INTENT_EXTRA, _memberId);
-        slideInIntent(intent);
+        Bundle extras = new Bundle();
+        extras.putLong(Intents.GROUP_ID_INTENT_EXTRA, _groupId);
+        extras.putLong(Intents.MEMBER_ID_INTENT_EXTRA, _memberId);
+        launchActivityWithSlideIn(RestrictionsActivity.class, extras);
     }
 
     @Override
     public void requestNotifyDraw(Group _group, long[] _memberIds) {
         Log.i(TAG, "onNotifyDraw() - Requesting Notify member set size:" + _memberIds.length);
         // Check the requirement for the notify
-        DialogFragment dialog = NotifyDialogFragment.create(_group.getId(), _memberIds);
-        dialog.show(getFragmentManager(), NOTIFY_DIALOG_FRAGMENT_TAG);
+        NotifyDialogFragment dialog = NotifyDialogFragment.create(_group.getId(), _memberIds);
+        dialog.show(getSupportFragmentManager(), NOTIFY_DIALOG_FRAGMENT_TAG);
     }
 
     @Override
@@ -328,18 +324,6 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
         }
     }
 
-    private void slideInIntent(Intent intent) {
-        // Activity options is since API 16.
-        // Got this idea from Android Dev Bytes video - https://www.youtube.com/watch?v=Ho8vk61lVIU
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-        } else {
-            Bundle translateBundle = ActivityOptions.makeCustomAnimation(this, R.anim.slide_in_left, R.anim.slide_out_left).toBundle();
-            startActivity(intent, translateBundle);
-        }
-    }
-
     private void showGroup(long _groupId, boolean forceUpdate) {
         Log.i(TAG, "showGroup() - start. groupId: " + _groupId);
 
@@ -348,7 +332,7 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
 
         mCurrentGroupId = _groupId;
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         MemberListFragment existing = (MemberListFragment) fragmentManager.findFragmentByTag(MEMBERS_LIST_FRAGMENT_TAG);
 
         // Replace existing MemberListFragment
@@ -367,5 +351,27 @@ public class MainActivity extends InjectingActivity implements MemberListFragmen
         // Update preferences to save last viewed Group
         mSharedPreferences.
                 edit().putLong(OpenSecretSantaApplication.MOST_RECENT_GROUP_KEY, _groupId).apply();
+    }
+
+    private void launchActivityWithSlideIn(Class<? extends Activity> activityClass) {
+        launchActivityWithSlideIn(activityClass, null);
+    }
+
+    private void launchActivityWithSlideIn(Class<? extends Activity> activityClass, Bundle extras) {
+
+        Intent intent = new Intent(this, activityClass);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+
+        // Activity options is since API 16.
+        // Refer: Android Dev Bytes video - https://www.youtube.com/watch?v=Ho8vk61lVIU
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+        } else {
+            Bundle translateBundle = ActivityOptions.makeCustomAnimation(this, R.anim.slide_in_left, R.anim.slide_out_left).toBundle();
+            startActivity(intent, translateBundle);
+        }
     }
 }

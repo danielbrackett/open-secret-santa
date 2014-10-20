@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.moac.android.inject.dagger.InjectingFragment;
+import com.moac.android.inject.dagger.InjectingSupportFragment;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.database.DatabaseManager;
 import com.moac.android.opensecretsanta.model.Group;
@@ -24,7 +24,7 @@ import rx.Subscription;
 import rx.android.concurrency.AndroidSchedulers;
 import rx.concurrency.Schedulers;
 
-public class NotifyExecutorFragment extends InjectingFragment implements DrawNotifier, Observer<NotifyStatusEvent> {
+public class NotifyExecutorFragment extends InjectingSupportFragment implements DrawNotifier, Observer<NotifyStatusEvent> {
 
     private static final String TAG = NotifyExecutorFragment.class.getSimpleName();
 

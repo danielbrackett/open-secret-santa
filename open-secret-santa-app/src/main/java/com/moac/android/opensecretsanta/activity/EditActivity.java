@@ -16,10 +16,10 @@ public class EditActivity extends BaseEditorActivity {
         if (savedInstance == null) {
             final long memberId = getIntent().getLongExtra(Intents.MEMBER_ID_INTENT_EXTRA, PersistableObject.UNSET_ID);
             MemberEditFragment fragment = MemberEditFragment.create(memberId);
-            getFragmentManager().beginTransaction().add(R.id.container_content, fragment, MemberEditFragment.class.getName()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container_content, fragment, MemberEditFragment.class.getName()).commit();
             mSaveableFragment = fragment;
         } else {
-            mSaveableFragment = (Saveable) getFragmentManager().findFragmentByTag(MemberEditFragment.class.getName());
+            mSaveableFragment = (Saveable) getSupportFragmentManager().findFragmentByTag(MemberEditFragment.class.getName());
         }
     }
 

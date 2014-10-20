@@ -30,7 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.moac.android.inject.dagger.InjectingListFragment;
+import com.moac.android.inject.dagger.InjectingSupportListFragment;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.activity.Intents;
 import com.moac.android.opensecretsanta.adapter.MemberListAdapter;
@@ -69,7 +69,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.moac.android.opensecretsanta.util.Utils.safeUnsubscribe;
 
 // TODO(PT) This class is too big
-public class MemberListFragment extends InjectingListFragment {
+public class MemberListFragment extends InjectingSupportListFragment {
 
     private static final String TAG = MemberListFragment.class.getSimpleName();
     private static final String DRAW_IN_PROGRESS_KEY = "drawInProgress";
@@ -573,7 +573,7 @@ public class MemberListFragment extends InjectingListFragment {
             avatarUri = contactUri.toString();
         }
         // Create an instance of the dialog fragment and show it
-        DialogFragment dialog = RevealDialogFragment.create(giver.getName(), receiver.getName(), avatarUri);
+        RevealDialogFragment dialog = RevealDialogFragment.create(giver.getName(), receiver.getName(), avatarUri);
         dialog.show(getFragmentManager(), ASSIGNMENT_FRAGMENT_KEY);
 
         // Set as Revealed

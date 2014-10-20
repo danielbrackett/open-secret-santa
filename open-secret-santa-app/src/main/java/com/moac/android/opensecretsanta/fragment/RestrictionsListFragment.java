@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.moac.android.inject.dagger.InjectingListFragment;
+import com.moac.android.inject.dagger.InjectingSupportListFragment;
 import com.moac.android.opensecretsanta.R;
 import com.moac.android.opensecretsanta.activity.Intents;
 import com.moac.android.opensecretsanta.adapter.RestrictionListAdapter;
@@ -22,7 +22,7 @@ import java.util.*;
 
 import javax.inject.Inject;
 
-public class RestrictionsListFragment extends InjectingListFragment implements Saveable {
+public class RestrictionsListFragment extends InjectingSupportListFragment implements Saveable {
 
     private static final String TAG = RestrictionsListFragment.class.getSimpleName();
 
